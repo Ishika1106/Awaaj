@@ -250,7 +250,7 @@ They would **still** be unable to read the actual report without the encryption 
 ## APIs Used
 
 | API | Purpose 
-|-----|---------|------|-------------|
+|-----|---------
 | **Groq** | Expands form data into detailed report; classifies/structures report text
 | **Pollinations AI** | Generates cover images from text prompts
 | **Overpass API** (OpenStreetMap) | Queries nearby NGOs, police stations, hospitals, shelters

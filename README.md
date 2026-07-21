@@ -46,8 +46,6 @@ Awaaj is a safe space for people experiencing domestic abuse. Here's what the ap
 6. **Find nearby help (optional)** — If you feel unsafe, you can search for NGOs, police stations, hospitals, and shelters near your current location.
 7. **Share on social media (future)** — In the future, you'll be able to post the image on Instagram or Facebook with a unique hashtag. Admin services can monitor registered Awaaj hashtags, retrieve associated images, and decode hidden reports.
 
----
-
 ## How It Works — Step by Step
 
 ```
@@ -186,8 +184,8 @@ They would **still** be unable to read the actual report without the encryption 
 
 ## APIs Used
 
-| API | Purpose |
-|-----|---------|
+| API | Purpose 
+|-----|--------
 | **Groq** | Expands form data into detailed report; classifies/structures report text
 | **Pollinations AI** | Generates cover images from text prompts
 | **Overpass API** (OpenStreetMap) | Queries nearby NGOs, police stations, hospitals, shelters 

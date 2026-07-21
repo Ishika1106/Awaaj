@@ -1,16 +1,72 @@
 # Awaaj — Safe & Anonymous Domestic Abuse Reporting Platform
 
+<div align="center">
+
 **Awaaj** (meaning "voice") is a full-stack platform that gives domestic abuse victims a safe, anonymous way to report their situation. Users fill out a simple form, an AI generates a detailed report, and the report is secretly hidden inside an ordinary-looking image using **steganography**. The image is saved securely, and only authorized admins can extract and read the hidden information. After submission, users can optionally find nearby NGOs, police stations, hospitals, and shelters using their location — in case they need immediate in-person help.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115-green?logo=fastapi)](https://fastapi.tiangolo.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-red?logo=mongodb)](https://www.mongodb.com/)
+
+</div>
+
+---
+
+## Demo
+
+<div align="center">
+
+https://github.com/user-attachments/assets/demo.mp4
+
+</div>
+
+---
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><b>Homepage</b><br/><img src="assets/homepage-1.png" width="400" /></td>
+    <td align="center"><b>Homepage</b><br/><img src="assets/homepage2.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Homepage</b><br/><img src="assets/homepage-3.png" width="400" /></td>
+    <td align="center"><b>FAQ</b><br/><img src="assets/faq.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Create Post</b><br/><img src="assets/create-post-form.png" width="400" /></td>
+    <td align="center"><b>Form Demo</b><br/><img src="assets/form-demo.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>AI-Generated Report (1)</b><br/><img src="assets/generated-text-1.png" width="400" /></td>
+    <td align="center"><b>AI-Generated Report (2)</b><br/><img src="assets/generated-text-2.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Image Generated</b><br/><img src="assets/image-generated.png" width="400" /></td>
+    <td align="center"><b>Encoded Image</b><br/><img src="assets/encoded-image.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Confirmation</b><br/><img src="assets/conformation-page.png" width="400" /></td>
+    <td align="center"><b>Nearby Places</b><br/><img src="assets/nearby-places.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><b>Admin Login</b><br/><img src="assets/admin-login.png" width="400" /></td>
+  </tr>
+</table>
+
+---
 
 ## Why Awaaj is Different
 
 Traditional reporting systems require victims to directly contact authorities, helplines, or organizations.
 
-Awaaj introduces covert reporting through steganography.
+**Awaaj** introduces **covert reporting** through steganography.
 
 Reports can be embedded inside ordinary images, allowing victims to preserve and share sensitive information without exposing it during normal viewing.
 
 The platform combines:
+
 - AI-assisted report generation
 - Abuse classification
 - Hidden report embedding
@@ -18,11 +74,15 @@ The platform combines:
 - Nearby support discovery
 
 into a single workflow.
+
 ---
 
 ## Table of Contents
 
-- [The Idea ](#the-idea)
+- [Demo](#demo)
+- [Screenshots](#screenshots)
+- [Why Awaaj is Different](#why-awaaj-is-different)
+- [The Idea](#the-idea)
 - [How It Works — Step by Step](#how-it-works--step-by-step)
 - [Technical Explanation](#technical-explanation)
 - [Future Improvements (Not Implemented)](#future-improvements-not-implemented)
@@ -45,6 +105,9 @@ Awaaj is a safe space for people experiencing domestic abuse. Here's what the ap
 5. **The report is saved** — Admins can view the details and reach out to help you.
 6. **Find nearby help (optional)** — If you feel unsafe, you can search for NGOs, police stations, hospitals, and shelters near your current location.
 7. **Share on social media (future)** — In the future, you'll be able to post the image on Instagram or Facebook with a unique hashtag. Admin services can monitor registered Awaaj hashtags, retrieve associated images, and decode hidden reports.
+
+**Privacy first**: The hidden information is not visible during normal viewing. Future versions will add encryption before embedding so that extracted payloads remain unreadable without authorization
+---
 
 ## How It Works — Step by Step
 
@@ -72,6 +135,10 @@ Awaaj is a safe space for people experiencing domestic abuse. Here's what the ap
 ## Technical Explanation
 
 ### Architecture
+
+<div align="center">
+<img src="assets/Architecture-Diagram.png" alt="Architecture Diagram" width="700" />
+</div>
 
 - **Frontend**: Next.js 15 (App Router) with TypeScript, Tailwind CSS, and shadcn/ui components. Runs on port 3000.
 - **Backend**: FastAPI (Python) running on port 8000. Handles all business logic.
@@ -184,11 +251,12 @@ They would **still** be unable to read the actual report without the encryption 
 
 ## APIs Used
 
-| API | Purpose 
-|-----|--------
+| API | Purpose | Cost | Key Required |
+|-----|---------|------|-------------|
 | **Groq** | Expands form data into detailed report; classifies/structures report text
 | **Pollinations AI** | Generates cover images from text prompts
 | **Overpass API** (OpenStreetMap) | Queries nearby NGOs, police stations, hospitals, shelters 
+| **OpenCage**  | Reverse geocodes coordinates to city name 
 | **MongoDB Atlas** | Database and file storage 
 ---
 
@@ -205,7 +273,7 @@ They would **still** be unable to read the actual report without the encryption 
 ```bash
 cd backend
 python -m venv venv
-source venv/bin/activate  
+source venv/bin/activate   # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 

@@ -1,5 +1,5 @@
 'use client';
-import { cleanText, fetchCityName } from '@/lib/utils';
+import { extractCoords } from '@/lib/utils';
 import React, { useEffect, useState } from 'react';
 import { Button } from './ui/button';
 import {
@@ -12,13 +12,16 @@ import {
   TrendingUp,
   Loader2,
   Check,
+  Trash2,
 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface Post {
   _id: string;
   Name: string;
   Location: string;
+  location_name?: string;
   'Preferred way of contact': string;
   'Contact info': string;
   'Frequency of domestic violence': string;
@@ -36,7 +39,7 @@ interface Post {
 function PostDetail({ id }: { id: string }) {
   const [post, setPost] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [city, setCity] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchPostById = async () => {
@@ -59,31 +62,6 @@ function PostDetail({ id }: { id: string }) {
     fetchPostById();
   }, [id]);
 
-  useEffect(() => {
-    if (post) {
-      let lat = post.latitude;
-      let lng = post.longitude;
-      if (!lat || !lng || isNaN(lat) || isNaN(lng)) {
-        const cleanLoc = cleanText(post.Location);
-        const parts = cleanLoc.split(',').map(Number);
-        lat = parts[0];
-        lng = parts[1];
-      }
-
-      if (lat && lng && !isNaN(lat) && !isNaN(lng)) {
-        const fetchCity = async () => {
-          try {
-            const cityName = await fetchCityName(lat, lng);
-            setCity(cityName);
-          } catch (err) {
-            console.error('Failed to fetch city name:', err);
-          }
-        };
-        fetchCity();
-      }
-    }
-  }, [post]);
-
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -95,14 +73,9 @@ function PostDetail({ id }: { id: string }) {
       </div>
     );
   }
-  let lat = post.latitude;
-  let lng = post.longitude;
-  if (!lat || !lng || isNaN(lat) || isNaN(lng)) {
-    const cleanLoc = cleanText(post.Location);
-    const parts = cleanLoc.split(',').map(Number);
-    lat = parts[0];
-    lng = parts[1];
-  }
+  const coords = extractCoords(post);
+  const lat = coords?.lat;
+  const lng = coords?.lng;
   const showMap = lat && lng && !isNaN(lat) && !isNaN(lng);
   const mapUrl = showMap
     ? `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.01}%2C${lat - 0.01}%2C${lng + 0.01}%2C${lat + 0.01}&layer=mapnik&marker=${lat}%2C${lng}`
@@ -132,26 +105,52 @@ function PostDetail({ id }: { id: string }) {
     }
   };
 
+  const handleDelete = async () => {
+    if (!confirm('Are you sure you want to permanently delete this report?')) return;
+    try {
+      const res = await fetch('/api/delete-post', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ postId: post._id }),
+      });
+      if (!res.ok) throw new Error('Failed to delete');
+      toast.success('Report deleted');
+      router.push('/dashboard');
+    } catch {
+      toast.error('Failed to delete report');
+    }
+  };
+
   return (
     <div className="flex-1 bg-gradient-to-b from-orange-50/50 to-white">
       <div className="flex flex-col h-full max-w-6xl w-full mx-auto p-5">
         <div className="flex items-center justify-between w-full">
           <h1 className="text-3xl font-bold text-gray-900">{post.Name}</h1>
-          {post.status === 'pending' && (
+          <div className="flex items-center gap-2">
+            {post.status === 'pending' && (
+              <Button
+                onClick={() => handleCloseIssue(post._id)}
+                className="flex items-center space-x-2"
+              >
+                <CircleX />
+                Close Issue
+              </Button>
+            )}
+            {post.status === 'closed' && (
+              <Button className="flex items-center space-x-2 bg-green-600 text-white hover:bg-green-700">
+                <Check />
+                Issue Closed
+              </Button>
+            )}
             <Button
-              onClick={() => handleCloseIssue(post._id)}
+              onClick={handleDelete}
+              variant="destructive"
               className="flex items-center space-x-2"
             >
-              <CircleX />
-              Close Issue
+              <Trash2 />
+              Delete
             </Button>
-          )}
-          {post.status === 'closed' && (
-            <Button className="flex items-center space-x-2 bg-green-600 text-white hover:bg-green-700">
-              <Check />
-              Issue Closed
-            </Button>
-          )}
+          </div>
         </div>
         <div className="grid grid-cols-3 gap-3 mt-5">
           <div className="max-w-sm w-full rounded-md border border-gray-200 flex flex-col gap-3 p-3">
@@ -195,8 +194,7 @@ function PostDetail({ id }: { id: string }) {
               <h2 className="text-lg font-semibold text-gray-900">Location</h2>
               <MapPin className="text-orange-600" />
             </div>
-            <p className="text-gray-600">{post['Location']}</p>
-            <p className="text-gray-600">{city}</p>
+            <p className="text-gray-600">{post.location_name || post.Location || 'Unknown'}</p>
           </div>
           <div className="max-w-sm w-full rounded-md border border-gray-200 flex flex-col gap-3 p-3">
             <div className="flex items-center justify-between w-full gap-5">

@@ -1,4 +1,5 @@
 import logging
+import math
 from io import BytesIO
 
 from bson import ObjectId
@@ -16,6 +17,7 @@ from backend.utils.text_llm import (
     decompose_user_text,
     expand_user_text,
     generate_image_options,
+    reverse_geocode,
 )
 
 logger = logging.getLogger(__name__)
@@ -129,6 +131,10 @@ async def save_extracted_data(data: dict):
     try:
         if db is None:
             raise HTTPException(status_code=503, detail="Database not available")
+        lat = data.get("latitude")
+        lng = data.get("longitude")
+        if lat and lng and isinstance(lat, (int, float)) and isinstance(lng, (int, float)) and not math.isnan(lat) and not math.isnan(lng):
+            data["location_name"] = reverse_geocode(lat, lng)
         db["admin"].insert_one(data)
         return {"status": "Data saved successfully"}
     except HTTPException:
@@ -244,3 +250,19 @@ async def close_issue(issue_id: str):
     except Exception as e:
         logger.error(f"Error closing issue: {e}")
         raise HTTPException(status_code=500, detail=f"Error closing issue: {e}")
+
+
+@app.delete("/delete-post/{post_id}")
+async def delete_post(post_id: str):
+    try:
+        if db is None:
+            raise HTTPException(status_code=503, detail="Database not available")
+        result = db["admin"].delete_one({"_id": ObjectId(post_id)})
+        if result.deleted_count == 0:
+            raise HTTPException(status_code=404, detail="Post not found")
+        return {"status": "Post deleted successfully"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting post: {e}")
+        raise HTTPException(status_code=500, detail=f"Error deleting post: {e}")

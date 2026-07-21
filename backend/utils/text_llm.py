@@ -142,3 +142,21 @@ def generate_image_options(prompt: str, count: int = 3) -> list:
         seed = abs(hash(f"{prompt}-{i}")) % 1_000_000
         images.append(generate_image_from_prompt(prompt, seed=seed))
     return images
+
+
+def reverse_geocode(lat: float, lng: float) -> str:
+    try:
+        client = _get_groq_client()
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": f"Return ONLY the city, state, and country for coordinates {lat}, {lng}. No explanation, no extra text. Example format: Mumbai, Maharashtra, India",
+                }
+            ],
+            model=os.getenv("GROQ_MODEL", "llama-3.1-8b-instant"),
+        )
+        result = chat_completion.choices[0].message.content.strip()
+        return result if result else "Unknown Location"
+    except Exception:
+        return "Unknown Location"

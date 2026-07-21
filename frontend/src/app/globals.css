@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 36 100% 97%;
+    --foreground: 16 30% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 16 30% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 16 30% 15%;
+    --primary: 16 100% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 36 100% 92%;
+    --secondary-foreground: 16 100% 25%;
+    --muted: 36 50% 95%;
+    --muted-foreground: 16 10% 45%;
+    --accent: 24 100% 92%;
+    --accent-foreground: 16 100% 25%;
+    --destructive: 0 84% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 24 30% 86%;
+    --input: 24 30% 86%;
+    --ring: 16 100% 45%;
+    --radius: 0.75rem;
+    --chart-1: 16 100% 45%;
+    --chart-2: 24 100% 50%;
+    --chart-3: 0 80% 50%;
+    --chart-4: 36 100% 45%;
+    --chart-5: 12 100% 40%;
+  }
+
+  .dark {
+    --background: 24 30% 8%;
+    --foreground: 36 30% 92%;
+    --card: 24 30% 10%;
+    --card-foreground: 36 30% 92%;
+    --popover: 24 30% 10%;
+    --popover-foreground: 36 30% 92%;
+    --primary: 16 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 16 40% 18%;
+    --secondary-foreground: 36 100% 88%;
+    --muted: 16 30% 15%;
+    --muted-foreground: 24 10% 65%;
+    --accent: 16 40% 18%;
+    --accent-foreground: 36 100% 88%;
+    --destructive: 0 70% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 16 30% 20%;
+    --input: 16 30% 20%;
+    --ring: 16 100% 50%;
+    --chart-1: 16 100% 50%;
+    --chart-2: 24 100% 55%;
+    --chart-3: 0 75% 50%;
+    --chart-4: 36 100% 50%;
+    --chart-5: 12 100% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #fef3e2;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #ea580c, #dc2626);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #dc2626, #b91c1c);
+}

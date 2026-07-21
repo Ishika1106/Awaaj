@@ -27,47 +27,35 @@
 
 ## Screenshots
 
-<div align="center">
-
-### Create a Post
-<img src="assets/create-post-form.png" alt="Create Post Form" width="700" />
-
-<br />
-
-### AI-Generated Report
-<img src="assets/generated-text-1.png" alt="Generated Report" width="700" />
-
-<br />
-
-### Steganography Encoding
-<img src="assets/encoded-image.png" alt="Encoded Image" width="700" />
-
-<br />
-
-### Confirmation Page
-<img src="assets/conformation-page.png" alt="Confirmation Page" width="700" />
-
-<br />
-
-### Find Nearby Help
-<img src="assets/nearby-places.png" alt="Nearby Places" width="700" />
-
-<br />
-
-### FAQ
-<img src="assets/faq.png" alt="FAQ" width="700" />
-
-</div>
-
----
-
-## Architecture
-
-<div align="center">
-
-<img src="assets/Architecture-Diagram.png" alt="Architecture Diagram" width="750" />
-
-</div>
+<table>
+  <tr>
+    <td align="center"><b>Homepage</b><br/><img src="assets/homepage-1.png" width="400" /></td>
+    <td align="center"><b>Homepage</b><br/><img src="assets/homepage2.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Homepage</b><br/><img src="assets/homepage-3.png" width="400" /></td>
+    <td align="center"><b>FAQ</b><br/><img src="assets/faq.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Create Post</b><br/><img src="assets/create-post-form.png" width="400" /></td>
+    <td align="center"><b>Form Demo</b><br/><img src="assets/form-demo.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>AI-Generated Report (1)</b><br/><img src="assets/generated-text-1.png" width="400" /></td>
+    <td align="center"><b>AI-Generated Report (2)</b><br/><img src="assets/generated-text-2.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Image Generated</b><br/><img src="assets/image-generated.png" width="400" /></td>
+    <td align="center"><b>Encoded Image</b><br/><img src="assets/encoded-image.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Confirmation</b><br/><img src="assets/conformation-page.png" width="400" /></td>
+    <td align="center"><b>Nearby Places</b><br/><img src="assets/nearby-places.png" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><b>Admin Login</b><br/><img src="assets/admin-login.png" width="400" /></td>
+  </tr>
+</table>
 
 ---
 
@@ -95,7 +83,6 @@ into a single workflow.
 
 - [Demo](#demo)
 - [Screenshots](#screenshots)
-- [Architecture](#architecture)
 - [Why Awaaj is Different](#why-awaaj-is-different)
 - [The Idea](#the-idea)
 - [How It Works — Step by Step](#how-it-works--step-by-step)
@@ -150,6 +137,10 @@ Awaaj is a safe space for people experiencing domestic abuse. Here's what the ap
 ## Technical Explanation
 
 ### Architecture
+
+<div align="center">
+<img src="assets/Architecture-Diagram.png" alt="Architecture Diagram" width="700" />
+</div>
 
 - **Frontend**: Next.js 15 (App Router) with TypeScript, Tailwind CSS, and shadcn/ui components. Runs on port 3000.
 - **Backend**: FastAPI (Python) running on port 8000. Handles all business logic.

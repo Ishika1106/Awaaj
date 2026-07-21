@@ -17,7 +17,7 @@
 
 <div align="center">
 
-<video src="assets/demo.mp4" controls width="700"></video>
+[![Watch the Demo](https://img.shields.io/badge/Watch_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/file/d/1QmwavDIlBMdQ4v7rV32JPqpyjo1pI8iY/view?usp=sharing)
 
 </div>
 

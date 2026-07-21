@@ -17,7 +17,7 @@
 
 <div align="center">
 
-https://github.com/user-attachments/assets/demo.mp4
+<video src="assets/demo.mp4" controls width="700"></video>
 
 </div>
 

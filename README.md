@@ -17,7 +17,7 @@
 
 <div align="center">
 
-[![Watch the Demo](https://img.shields.io/badge/Watch_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/file/d/1QmwavDIlBMdQ4v7rV32JPqpyjo1pI8iY/view?usp=sharing)
+[![Watch the Demo](https://img.shields.io/badge/Watch_Demo-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://drive.google.com/uc?export=download&id=1QmwavDIlBMdQ4v7rV32JPqpyjo1pI8iY)
 
 </div>
 
